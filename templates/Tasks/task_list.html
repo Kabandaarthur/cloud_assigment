@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-900">My Tasks</h2>
+        <a href="{% url 'create_task' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Add New Task
+        </a>
+    </div>
+
+    {% if tasks %}
+        <div class="space-y-4">
+            {% for task in tasks %}
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-gray-900 {% if task.completed %}line-through text-gray-500{% endif %}">
+                                {{ task.title }}
+                            </h3>
+                            {% if task.description %}
+                                <p class="text-gray-600 mt-1">{{ task.description }}</p>
+                            {% endif %}
+                            <p class="text-sm text-gray-500 mt-2">Created: {{ task.created_at|date:"M d, Y H:i" }}</p>
+                        </div>
+                        <div class="flex space-x-2">
+                            {% if not task.completed %}
+                                <form method="post" action="{% url 'complete_task' task.id %}" class="inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white text-sm py-1 px-3 rounded">
+                                        Complete
+                                    </button>
+                                </form>
+                            {% endif %}
+                            <a href="{% url 'edit_task' task.id %}" class="bg-yellow-500 hover:bg-yellow-700 text-white text-sm py-1 px-3 rounded">
+                                Edit
+                            </a>
+                            <a href="{% url 'delete_task' task.id %}" class="bg-red-500 hover:bg-red-700 text-white text-sm py-1 px-3 rounded">
+                                Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="bg-white p-8 rounded-lg shadow-md text-center">
+            <p class="text-gray-600 text-lg">No tasks yet. <a href="{% url 'create_task' %}" class="text-blue-500 hover:text-blue-700">Create your first task!</a></p>
+        </div>
+    {% endif %}
+{% endblock %}

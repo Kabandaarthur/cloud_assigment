@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Home | My Todo App{% endblock %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<div class="text-center py-12">
+    <h2 class="text-4xl font-extrabold text-gray-900 mb-4">
+        Stay Organized, Stay Productive
+    </h2>
+    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Manage your daily tasks efficiently and never miss a thing.
+        Start building your productivity today with My Todo App.
+    </p>
+</div>
+
+<!-- FEATURES SECTION -->
+<div class="grid md:grid-cols-3 gap-6 mt-12">
+
+    <!-- Feature 1 -->
+    <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Create Tasks</h3>
+        <p class="text-gray-600">
+            Easily add and manage your daily tasks in one place.
+        </p>
+    </div>
+
+    <!-- Feature 2 -->
+    <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Stay Organized</h3>
+        <p class="text-gray-600">
+            Keep track of what matters most and stay on top of your goals.
+        </p>
+    </div>
+
+    <!-- Feature 3 -->
+    <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Boost Productivity</h3>
+        <p class="text-gray-600">
+            Focus on what’s important and get things done faster.
+        </p>
+    </div>
+
+</div>
+
+<!-- OPTIONAL QUICK ACTION -->
+<div class="mt-16 text-center">
+    <a href="{% url 'task_list' %}" 
+       class="bg-green-500 text-white px-6 py-3 rounded-lg shadow hover:bg-green-600 transition">
+        + Add Your First Task
+    </a>
+</div>
+
+{% endblock %}

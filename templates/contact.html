@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Contact | My Todo App{% endblock %}
+
+{% block content %}
+
+<!-- HEADER -->
+<div class="text-center py-1">
+    <h2 class="text-4xl font-extrabold text-gray-900 mb-4">
+        Contact Us
+    </h2>
+    <p class="text-lg text-gray-600">
+        Have questions? We'd love to hear from you.
+    </p>
+</div>
+
+<!-- CONTACT SECTION -->
+<div class="grid md:grid-cols-2 gap-10">
+
+    <!-- CONTACT INFO -->
+    <div class="space-y-6">
+        <div class="bg-white p-3 rounded-xl shadow">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">📍 Address</h3>
+            <p class="text-gray-600">Kampala, Uganda</p>
+        </div>
+
+        <div class="bg-white p-3 rounded-xl shadow">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">📧 Email</h3>
+            <p class="text-gray-600">arthurvardy27@gmail.com</p>
+        </div>
+
+        <div class="bg-white p-3 rounded-xl shadow">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">📞 Phone</h3>
+            <p class="text-gray-600">+256706062559</p>
+        </div>
+    </div>
+
+    <!-- CONTACT FORM -->
+    <div class="bg-white p-5 rounded-xl shadow-lg">
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="mb-4">
+                <label class="block text-gray-700 mb-2">Name</label>
+                <input type="text" name="name" 
+                       class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700 mb-2">Email</label>
+                <input type="email" name="email" 
+                       class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700 mb-2">Message</label>
+                <textarea name="message" rows="3"
+                          class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+            </div>
+
+            <button type="submit"
+                    class="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 transition">
+                Send Message
+            </button>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}
