@@ -5,43 +5,71 @@
 {% block content %}
 
 <!-- HEADER -->
-<div class="text-center py-12">
-    <h2 class="text-4xl font-extrabold text-gray-900 mb-4">
+<div class="text-center py-8 sm:py-12 px-4">
+    <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">
         About My Todo App
     </h2>
-    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+    <p class="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-2">
         Helping you stay organized, focused, and productive every day.
     </p>
 </div>
 
 <!-- CONTENT -->
-<div class="grid md:grid-cols-2 gap-10 items-center">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-start px-4">
 
     <!-- TEXT -->
-    <div>
-        <h3 class="text-2xl font-bold text-gray-800 mb-4">Our Mission</h3>
-        <p class="text-gray-600 mb-4">
+    <div class="order-2 lg:order-1">
+        <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-4">Our Mission</h3>
+        <p class="text-gray-600 mb-6 text-sm sm:text-base leading-relaxed">
             My Todo App is designed to simplify your daily life by helping you
-            manage tasks efficiently and stay on top of your goals.
+            manage tasks efficiently and stay on top of your goals. We believe that
+            productivity should be simple, not complicated.
         </p>
 
-        <h3 class="text-2xl font-bold text-gray-800 mb-4">Why Choose Us?</h3>
+        <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-4">Why Choose Us?</h3>
         <ul class="space-y-3 text-gray-600">
-            <li>- Simple and easy to use</li>
-            <li>- Fast and responsive design</li>
-            <li>- Works on all devices</li>
-            <li>- Secure and reliable</li>
+            <li class="flex items-start">
+                <span class="text-green-500 mr-2 text-lg">✓</span>
+                <span class="text-sm sm:text-base">Simple and easy to use interface</span>
+            </li>
+            <li class="flex items-start">
+                <span class="text-green-500 mr-2 text-lg">✓</span>
+                <span class="text-sm sm:text-base">Fast and responsive design</span>
+            </li>
+            <li class="flex items-start">
+                <span class="text-green-500 mr-2 text-lg">✓</span>
+                <span class="text-sm sm:text-base">Works perfectly on all devices</span>
+            </li>
+            <li class="flex items-start">
+                <span class="text-green-500 mr-2 text-lg">✓</span>
+                <span class="text-sm sm:text-base">Secure and reliable data storage</span>
+            </li>
         </ul>
     </div>
 
     <!-- CARD -->
-    <div class="bg-white p-8 rounded-xl shadow-lg">
-        <h3 class="text-xl font-semibold text-gray-800 mb-3">Our Vision</h3>
-        <p class="text-gray-600">
+    <div class="order-1 lg:order-2 bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+        <div class="text-4xl sm:text-5xl mb-4">🎯</div>
+        <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-3">Our Vision</h3>
+        <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
             To become the go-to productivity tool that helps people achieve more
-            with less stress.
+            with less stress. We want to make task management so effortless that
+            you can focus on what really matters in your life.
         </p>
+
+        <!-- Stats -->
+        <div class="mt-6 grid grid-cols-2 gap-4">
+            <div class="text-center">
+                <div class="text-2xl font-bold text-indigo-600">100%</div>
+                <div class="text-xs text-gray-600">Free</div>
+            </div>
+            <div class="text-center">
+                <div class="text-2xl font-bold text-green-600">∞</div>
+                <div class="text-xs text-gray-600">Tasks</div>
+            </div>
+        </div>
     </div>
 
 </div>
+
 {% endblock %}
