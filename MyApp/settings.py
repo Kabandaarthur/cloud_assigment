@@ -28,9 +28,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('DJANGO_SECRET_KEY', default='unsafe-local-secret')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DJANGO_DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = env('ALLOWED_HOSTS', default='*', cast=Csv())
+ALLOWED_HOSTS = env('ALLOWED_HOSTS', default='to-do-application.up.railway.app,localhost,127.0.0.1', cast=Csv())
 
 CSRF_TRUSTED_ORIGINS = env('CSRF_TRUSTED_ORIGINS', default='https://to-do-application.up.railway.app', cast=Csv())
 
