@@ -88,9 +88,15 @@ WSGI_APPLICATION = 'MyApp.wsgi.application'
 try:
     import dj_database_url
     # Use config() which automatically looks for DATABASE_URL and parses it correctly
+    # Added a safeguard to strip 'railway' prefix if it exists in the URL
+    database_url = env('DATABASE_URL', default='')
+    # Safeguard: Only strip 'railway' if it's prepended to the protocol (e.g., 'railwaypostgresql://')
+    if database_url.startswith('railwaypost'):
+        database_url = database_url.replace('railwaypost', 'post', 1)
+
     DATABASES = {
         'default': dj_database_url.config(
-            default=env('DATABASE_URL', default=''),
+            default=database_url,
             conn_max_age=600,
             ssl_require=True
         )
