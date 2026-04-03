@@ -87,12 +87,14 @@ WSGI_APPLICATION = 'MyApp.wsgi.application'
 # DATABASE_URL must be set in the environment.
 try:
     import dj_database_url
+    import re
+
     # Use config() which automatically looks for DATABASE_URL and parses it correctly
-    # Added a safeguard to strip 'railway' prefix if it exists in the URL
     database_url = env('DATABASE_URL', default='')
-    # Safeguard: Only strip 'railway' if it's prepended to the protocol (e.g., 'railwaypostgresql://')
-    if database_url.startswith('railwaypost'):
-        database_url = database_url.replace('railwaypost', 'post', 1)
+    
+    # Aggressively strip anything that comes before 'postgresql://' or 'postgres://'
+    # This fixes the 'railwaypostgresql://' error by ensuring it always starts correctly.
+    database_url = re.sub(r'^.*?postgres', 'postgres', database_url)
 
     DATABASES = {
         'default': dj_database_url.config(
