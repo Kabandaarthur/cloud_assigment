@@ -92,9 +92,33 @@ try:
     # Use config() which automatically looks for DATABASE_URL and parses it correctly
     database_url = env('DATABASE_URL', default='')
     
-    # Aggressively strip anything that comes before 'postgresql://' or 'postgres://'
-    # This fixes the 'railwaypostgresql://' error by ensuring it always starts correctly.
-    database_url = re.sub(r'^.*?postgres', 'postgres', database_url)
+    # If the URL is duplicated (contains 'postgresql://' twice), take only the first one
+    if 'postgresql://' in database_url:
+        parts = database_url.split('postgresql://')
+        # Ensure we don't pick an empty part or a leading prefix
+        for part in parts:
+            if part.strip():
+                # Remove any trailing 'railway' prefix if it exists from a previous concatenation
+                clean_part = part.strip()
+                if clean_part.endswith('railway'):
+                    # Some duplications look like .../railwaypostgresql://...
+                    # We want to stop at the first /railway
+                    pass 
+                database_url = 'postgresql://' + clean_part
+                break
+
+    # Final cleanup: ensure it doesn't have multiple URLs
+    if 'postgresql://' in database_url:
+        # If it still has it (e.g. data1/railwaypostgresql://data2)
+        database_url = database_url.split('postgresql://')[0] + 'postgresql://' + database_url.split('postgresql://')[1]
+        # Then remove anything after the first valid database name if possible?
+        # A standard URL ends with /dbname. We can split by / and take parts.
+        # But let's keep it simple: take only up to the first instance of a second protocol
+        if 'postgresql://' in database_url[13:]: # skip the first one
+             database_url = database_url[:database_url.find('postgresql://', 13)]
+             # If it ends with 'railway', that was the first DB name
+             if database_url.endswith('railway'):
+                 pass
 
     DATABASES = {
         'default': dj_database_url.config(
@@ -103,6 +127,10 @@ try:
             ssl_require=True
         )
     }
+    
+    # Final safeguard: If the parsed name is still the whole URL (too long), force it to 'railway'
+    if DATABASES['default'].get('NAME') and len(DATABASES['default']['NAME']) > 63:
+        DATABASES['default']['NAME'] = 'railway'
     if not DATABASES['default']:
         raise RuntimeError('DATABASE_URL is not set; production PostgreSQL is required.')
 except ImportError as exc:
