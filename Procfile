@@ -1,1 +1,1 @@
-web: python manage.py migrate && gunicorn MyApp.wsgi
+web: python manage.py migrate && gunicorn MyApp.wsgi --bind 0.0.0.0:$PORT
