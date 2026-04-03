@@ -87,12 +87,16 @@ WSGI_APPLICATION = 'MyApp.wsgi.application'
 # DATABASE_URL must be set in the environment.
 try:
     import dj_database_url
-    database_url = env('DATABASE_URL')
-    if not database_url:
-        raise RuntimeError('DATABASE_URL is not set; production PostgreSQL is required.')
+    # Use config() which automatically looks for DATABASE_URL and parses it correctly
     DATABASES = {
-        'default': dj_database_url.parse(database_url, conn_max_age=600)
+        'default': dj_database_url.config(
+            default=env('DATABASE_URL', default=''),
+            conn_max_age=600,
+            ssl_require=True
+        )
     }
+    if not DATABASES['default']:
+        raise RuntimeError('DATABASE_URL is not set; production PostgreSQL is required.')
 except ImportError as exc:
     raise RuntimeError('dj_database_url must be installed to parse DATABASE_URL: %s' % exc)
 
